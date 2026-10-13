@@ -91,7 +91,22 @@ def check_escalation(user_question):
             "support representative."
         )
 
+    #Billing keywords
+    billing_keywords = [
+        "charged twice",
+        "double charged",
+        "duplicate payment",
+        "incorrect charge",
+        "wrong charge",
+        "billing dispute",
+        "payment deducted twice"
+    ]
 
+    if any(keyword in question.lower() for keyword in billing_keywords):
+        return (
+            "BILLING",
+            "Your billing concern should be reviewed by a human support representative. I will escalate this conversation to the support team"
+        )
     
     # Angry customer / serious complaint
     
@@ -223,32 +238,34 @@ def find_answer(user_question):
 
 
 # Start Support Agent
-
-print("=====================================")
-print("   Saathi Sneha Care Support Agent")
-print("=====================================")
-print("Type 'exit' to end the conversation.")
-
-
-while True:
-
-    question = input("\nCustomer: ")
+def main():
+    print("=====================================")
+    print("   Saathi Sneha Care Support Agent")
+    print("=====================================")
+    print("Type 'exit' to end the conversation.")
 
 
-    # Exit
-    if question.lower().strip() == "exit":
+    while True:
 
-        print(
-            "Agent: Thank you for contacting "
-            "Saathi Sneha Care. Goodbye!"
-        )
-
-        break
+        question = input("\nCustomer: ")
 
 
-    # Find answer
-    answer = find_answer(question)
+        # Exit
+        if question.lower().strip() == "exit":
+
+            print(
+                "Agent: Thank you for contacting "
+                "Saathi Sneha Care. Goodbye!"
+            )
+
+            break
 
 
-    # Display answer
-    print("Agent:", answer)
+        # Find answer
+        answer = find_answer(question)
+
+
+        # Display answer
+        print("Agent:", answer)
+if __name__ == "__main__":
+    main()
